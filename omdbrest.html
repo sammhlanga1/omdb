@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<body>
+    <form>
+        Movie:<br>
+        <input id="box" type="text" name="keyword" onkeyup="callREST(document.getElementById('box').value)"><br>
+    </form>
+    <div id="response"></div>
+
+    <script>
+	
+        function callREST(q) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("response").innerHTML = this.responseText;
+					//var myArr = JSON.parse(this.responseText);
+					//myFunction(myArr);
+                }
+            };
+            xhttp.open("GET", "https://www.omdbapi.com/?apikey=8bba13f3&s=" + q + "&page=1", true);
+			//setup();
+			xhttp.send();
+        }
+		
+		function myFunction(arr) {
+			var out = "";
+			var i;
+			for(i = 0; i < 5; i++) {
+				out += '<a href="' + arr[i].Search[i].Title + '">' + 
+				arr[i].Search[i].Year + '</a><br>';
+			}
+			document.getElementById("response").innerHTML = out;
+		}
+		
+    </script>
+</body>
+</html>
